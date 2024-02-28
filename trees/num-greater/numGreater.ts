@@ -5,7 +5,25 @@ import { TreeNodeNum } from "../common/tree";
  * is greater than lowerBound. */
 
 function numGreater(node: TreeNodeNum, lowerBound: number): number {
-  return 42;
+
+  let qualifyingNodesThatAreGreater: number = 0;
+
+  let toVisit = [node];
+
+  while (toVisit.length > 0) {
+
+    const current: TreeNodeNum = toVisit.pop()!;
+    // console.log('while loop ran, here is current:', current);
+
+    if (current.val > lowerBound) qualifyingNodesThatAreGreater++;
+
+    for (const child of current.children) {
+      toVisit.push(child);
+    }
+
+  }
+
+  return qualifyingNodesThatAreGreater;
 }
 
 export { numGreater };
