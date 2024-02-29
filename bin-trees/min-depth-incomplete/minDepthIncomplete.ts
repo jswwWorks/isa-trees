@@ -10,18 +10,21 @@ function minDepthToIncompleteNode(node: BNodeNum): number {
   if (node === null) return 0;
   if (!node.lnode || !node.rnode) return 1;
 
-  // still need to add the counting
+  let lDepth = 1;
+  let rDepth = 1;
 
-  if (node.lnode) minDepthToIncompleteNode(node.lnode);
-  if (node.rnode) minDepthToIncompleteNode(node.rnode);
-  /**
-   *
-   * game plan: base case is empty node or
-   *  when we actually hit node w 0-1 children
-   *
-   */
+  if (node.lnode){
+    lDepth++;
+    minDepthToIncompleteNode(node.lnode);
+  }
 
-  // return Math.max(...node.children.map(c => maxDepth(c) + 1));
+  if (node.rnode){
+    rDepth++;
+    minDepthToIncompleteNode(node.rnode);
+  }
+
+  return Math.min(lDepth, rDepth);
+
 }
 
 export { minDepthToIncompleteNode };
