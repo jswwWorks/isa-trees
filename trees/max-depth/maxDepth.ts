@@ -9,24 +9,32 @@ function maxDepth(node: TreeNodeNum | null): number {
 
   let maxDepth: number = 0;
   let currentDepth: number = 0;
+  let prevMaxDepth:
 
   let toVisit = [node];
 
   while (toVisit.length > 0) {
 
     const current: TreeNodeNum = toVisit.pop()!;
+    currentDepth++;
+    if (currentDepth > maxDepth) maxDepth = currentDepth;
 
-    if (current.children.length === 0) {
-      // if it's a leaf node, save the number
+    console.log("current.children: ", current.children);
+    console.log("current.children.length: ", current.children.length);
 
-      // TODO: save depth and compare depth
+    if (!current.children) {
+      // currentDepth--;
+      currentDepth = maxDepth;
+      console.log("value: ", current.val);
+      console.log("depth : ", currentDepth);
+    }
 
+    for (const child of current.children) {
+      toVisit.push(child);
     }
 
 
   }
-
-
   return maxDepth;
 }
 
