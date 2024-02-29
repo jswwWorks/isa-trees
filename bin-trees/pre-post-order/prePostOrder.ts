@@ -35,7 +35,27 @@ function preOrder(node: BNodeNum | null): number[] {
  * Returns an array of visited nodes. */
 
 function postOrder(node: BNodeNum | null): number[] {
-  return [42];
+
+  if (node === null) return []; // if node is null
+
+  if (!node.lnode && !node.rnode) {
+    // if it's a leaf node, return the node value
+    return [node.val];
+  }
+
+  const orderedNums: number[] = [];
+
+  // now, cases where there IS a child
+  if (node.lnode) {
+    orderedNums.push(...postOrder(node.lnode));
+  }
+  if (node.rnode) {
+    orderedNums.push(...postOrder(node.rnode));
+  }
+
+  orderedNums.push(node.val);
+  return orderedNums;
+
 }
 
 export { preOrder, postOrder };
