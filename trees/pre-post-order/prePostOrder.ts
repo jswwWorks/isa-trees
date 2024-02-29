@@ -32,42 +32,15 @@ function preOrder(node: BNodeNum | null): number[] {
 function postOrder(node: BNodeNum | null): number[] {
 
   if (node === null) return []; // if initial node is null
-  if (node.children.length === 0) return node.val; // if we're at a leaf node
+  if (node.children.length === 0) return [node.val]; // if we're at a leaf node
 
-  // but if it does have children
+  let orderedNums = [];
   for (const child of node.children) {
     console.log("in for loop");
-
     console.log([...postOrder(child), node.val]);
-
-    return [...postOrder(child), node.val];
+    orderedNums.push(...postOrder(child));
   }
-
-  return [];
+  return [...orderedNums, node.val];
 }
 
 export { preOrder, postOrder };
-
-
-// function postOrder(node: BNodeNum | null): number[] {
-
-//   let orderedVals: number[] = [];
-//   let toVisit = [node];
-
-//   while (toVisit.length > 0) {
-//     // if (current. is null, you can return here)
-//     const current = toVisit.shift()!;
-
-//     if (current) {
-//       for (const child of current.children) {
-//         toVisit.push(child);
-//       }
-//       orderedVals.push(current.val);
-//     }
-
-//     if (toVisit.length === 0) return orderedVals;
-//   }
-
-//   return orderedVals;
-
-// }
