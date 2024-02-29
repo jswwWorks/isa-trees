@@ -12,22 +12,38 @@ function minDepth(node: BNodeNum): number {
   // cut it off if don't have a left node or a right node
   if (node.lnode === null && node.rnode === null) return 1;
 
-  let lDepth = 1;
-  let rDepth = 1;
+  let lDepth = 0;
+  let rDepth = 0;
 
   if (node.lnode){
-    console.log("ldepth, current value: ", lDepth, node.val);
-    lDepth++;
-    minDepth(node.lnode);
+    // console.log("ldepth, current value after first inc: ", lDepth, node.val);
+    lDepth += minDepth(node.lnode);
+    // console.log("ldepth, after deeper dive: ", lDepth, node.val);
+    // lDepth++;
+
   }
 
   if (node.rnode){
-    console.log("rdepth, current value: ", rDepth, node.val);
-    rDepth++;
-    minDepth(node.rnode);
+    // console.log("rdepth, current value: ", rDepth, node.val);
+    // rDepth++;
+    rDepth += minDepth(node.rnode);
   }
 
-  return Math.min(lDepth, rDepth);
+  console.log("current node:", node.val);
+  console.log("vals:", "l:", lDepth, "r:", rDepth);
+
+
+  if (lDepth > 0 && rDepth > 0) return 1 + Math.min(lDepth, rDepth);
+  else if (lDepth) {
+    console.log("only ldepth");
+    return 1 + lDepth;
+  }
+  else {
+    console.log("only rdepth");
+    return 1 + rDepth;
+  }
+
+  // return 1 + Math.min(lDepth, rDepth);
 
 }
 
